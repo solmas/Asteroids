@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 494}
   m_MaxSize: {x: 14004, y: 14044}
   vertical: 0
-  controlID: 126
+  controlID: 124
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -637,19 +637,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\Seth\UnderbiteCodeTestProject
+  m_LastProjectPath: C:\Users\Seth\UnderbiteCodeTestProject\Asteroids
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 7}
-    m_SelectedIDs: b8340000
-    m_LastClickedID: 13496
+    m_SelectedIDs: 9c2f0000
+    m_LastClickedID: 12188
     m_ExpandedIDs: 000000009c2f0000e6300000be320000323400006a37000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -705,7 +705,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000c0360000f8ba000068370000765c0000a450000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 5a2a0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 72fbffff
       m_RenameOverlay:
@@ -865,7 +865,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0.2590001, y: 1.1383333, z: 81.88331}
     speed: 2
-    m_Value: {x: 0.54936767, y: 0.52226526, z: 128.42188}
+    m_Value: {x: 0.2590001, y: 1.1383333, z: 81.88331}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 17.838955
     speed: 2
-    m_Value: 41.962986
+    m_Value: 17.838955
   m_Ortho:
     m_Target: 1
     speed: 2
