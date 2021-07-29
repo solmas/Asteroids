@@ -1251,7 +1251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &648321837
 Transform:
   m_ObjectHideFlags: 0
@@ -1292,6 +1292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScore: 0
   playerLives: 0
+  player: {fileID: 558796210184748718, guid: 19e5402b988d6224d80e81d3feebc52e, type: 3}
+  enemyObjectId: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

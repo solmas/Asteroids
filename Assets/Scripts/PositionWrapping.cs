@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// PositionWrapping functions by creating 8 "ghosts" of the object and driving their position and rotation on the player.
-// When the parent object moves out of the viewport bounds, its position is updated to that of the ghost object within view port bounds.  Then
+// REQUIRED: Attach to any prefab object that appears on screen and is required to wrap position
+// PositionWrapping functions by creating 8 "ghosts" of the object and driving their position and rotation on the player object.
+// When the parent object moves out of the viewport (camera) bounds, its position is updated to that of the ghost object within view port bounds.  Then
 // all ghost objects update accordingly.  DestroyGhosts is called from EnemyDeath() and PlayerDeath() methods
 public class PositionWrapping : MonoBehaviour
 {
     private Camera _mainCamera;
     [SerializeField]
     private GameObject _ghost;
-
-    public bool spriteRendererVisible = true;
 
     void Start()
     {
@@ -41,6 +40,7 @@ public class PositionWrapping : MonoBehaviour
     private Transform[] _ghosts = new Transform[8];
 
     // Creates ghosts for parent object using _ghost object field assigned in the prefab.  All ghost prefabs will have have the suffix "Ghost"
+    // Ghost prefab objects only require a transform component to be attached to them
     private void CreateGhosts()
     {
         for (int i = 0; i < 8; i++)
@@ -103,17 +103,14 @@ public class PositionWrapping : MonoBehaviour
         }
     }
 
-    // If parent is NOT visible on screen, check which ghost is within the viewport bounds and swap position with parent
+    // If parent is NOT visible on screen, check which ghost is within the viewport bounds and swap position with parent, then update all other ghosts
     private void SwapParentWithGhostPosition()
     {
-        if (!IsObjectVisible())
+        if (!IsObjectVisible(gameObject))
         {
             foreach (var ghost in _ghosts)
             {
-                var viewPortObjPosition = _mainCamera.WorldToViewportPoint(ghost.transform.position, Camera.MonoOrStereoscopicEye.Mono);
-
-                if (viewPortObjPosition.x > 0 && viewPortObjPosition.x < 1 &&
-                    viewPortObjPosition.y > 0 && viewPortObjPosition.y < 1)
+                if (IsObjectVisible(ghost.gameObject))
                 {
                     gameObject.transform.position = ghost.position;
                     break;
@@ -123,11 +120,12 @@ public class PositionWrapping : MonoBehaviour
         PositionGhosts();
     }
 
-    // Gate that checks if the parent object is visible on screen and returns bool
-    private bool IsObjectVisible()
+    // Gate that checks if the variable object is visible on screen and returns bool
+    private bool IsObjectVisible(GameObject visibleObject)
     {
-        var viewPortObjPosition = _mainCamera.WorldToViewportPoint(gameObject.transform.position, Camera.MonoOrStereoscopicEye.Mono);
+        var viewPortObjPosition = _mainCamera.WorldToViewportPoint(visibleObject.transform.position, Camera.MonoOrStereoscopicEye.Mono);
         
+        // if visibleObject is in between 0 and 1 on both the x and y axis in the viewport, it is visible
         if (viewPortObjPosition.x > 0 && viewPortObjPosition.x < 1 &&
             viewPortObjPosition.y > 0 && viewPortObjPosition.y < 1)
         {

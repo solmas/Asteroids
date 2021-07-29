@@ -29,7 +29,8 @@ public class Asteroid : EnemyBase
         if (id == Id)
         {
             // do local hit stuff and then
-            
+
+            EnemyBaseDeath();
             AsteroidDeath();
         }
     }
@@ -37,7 +38,6 @@ public class Asteroid : EnemyBase
     public void AsteroidDeath()
     {
         GameEvents.events.EnemyDeath(ScoreValue);
-        gameObject.GetComponent<PositionWrapping>().DestroyGhosts();
 
         // do local death stuff
 

@@ -40,4 +40,9 @@ public class EnemyBase : MonoBehaviour
             _rb.AddRelativeForce(Vector2.up * (_enemyThrust));
         }
     }
+
+    public void EnemyBaseDeath()
+    {
+        gameObject.GetComponent<PositionWrapping>().DestroyGhosts();
+    }
 }

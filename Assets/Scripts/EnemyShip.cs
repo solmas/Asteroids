@@ -30,6 +30,7 @@ public class EnemyShip : EnemyBase
         {
             // do local hit stuff
 
+            EnemyBaseDeath();
             EnemyShipDeath();
         }
     }
@@ -37,7 +38,7 @@ public class EnemyShip : EnemyBase
    public void EnemyShipDeath()
     {
         GameEvents.events.EnemyDeath(ScoreValue);
-        gameObject.GetComponent<PositionWrapping>().DestroyGhosts();
+        
         // do local death stuff
 
         Destroy(gameObject);

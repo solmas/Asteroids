@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShip : MonoBehaviour
 {
     public PlayerControls controls;
+    public static PlayerShip playerShip;
 
     private float _turnThrust = 1f;
     private Rigidbody2D _rb;
@@ -45,16 +46,19 @@ public class PlayerShip : MonoBehaviour
     private void OnEnable()
     {
         controls.Enable();
+        GameEvents.events.onPlayerSpawn += PlayerInvincibility;
     }
 
     private void OnDisable()
     {
         controls.Disable();
         GameEvents.events.onPlayerHit -= PlayerHit;
+        GameEvents.events.onPlayerSpawn -= PlayerInvincibility;
     }
 
     private void Start()
     {
+        playerShip = this;
         _rb = gameObject.GetComponent<Rigidbody2D>();
         GameEvents.events.onPlayerHit += PlayerHit;
     }
@@ -65,9 +69,9 @@ public class PlayerShip : MonoBehaviour
         RotateThrust();
     }
 
-
+    #region Player Controls
     public bool isThrusting = false;
-    public float _thrust = 5;
+    public float _thrust = 10;
     private void ForwardThrust()
     {
         if (isThrusting)
@@ -104,6 +108,8 @@ public class PlayerShip : MonoBehaviour
         torpedo.GetComponent<PhotonTorpedo>().OnFire();
     }
 
+    #endregion
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "enemy" || collision.tag == "asteroid")
@@ -132,14 +138,49 @@ public class PlayerShip : MonoBehaviour
         // do local death stuff
         gameObject.GetComponent<PositionWrapping>().DestroyGhosts();
         Destroy(gameObject);
-
-        // gotta wait 3 seconds then PlayerSpawn();
     }
 
     public void PlayerGainedLife()
     {
         var life = 1;
         GameEvents.events.PlayerDeath(life);
+    }
+
+    public float InvincibilityTime = 3f;
+    public float FlashFrequency = .1f;
+    // Disables player collider, sets SpriteRenderer and sets tmp1 and tmp2 as alpha values 0 and 1
+    private void PlayerInvincibility()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        
+        StartCoroutine(InvincibilityTimer());
+        InvokeRepeating("InvincibilityFlash", .01f, FlashFrequency);
+    }
+
+    private void InvincibilityFlash()
+    {
+        var renderer = gameObject.GetComponent<SpriteRenderer>();
+        var tmp1 = renderer.color;
+        var tmp2 = renderer.color;
+        tmp1.a = 0f;
+        tmp2.a = 1f;
+        renderer.color = tmp1;
+
+        if (renderer.color == tmp1)
+        {
+            LeanTween.alpha(renderer.gameObject, 1f, FlashFrequency).setEaseInSine();
+        }
+        else
+        {
+            LeanTween.alpha(gameObject, 0f, FlashFrequency).setEaseOutSine();
+        }
+    }
+
+    private IEnumerator InvincibilityTimer()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        CancelInvoke("InvincibilityFlash");
     }
 
 }

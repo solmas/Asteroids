@@ -98,12 +98,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isThrusting: 0
-  _thrust: 3
+  _thrust: 50
   isRotating: 0
   isRotatingLeft: 0
-  turnPower: 0.5
+  turnPower: 1
   photonTorpedo: {fileID: 6962785006656402510, guid: 4e94ba1ba3e48d747b1e92b24c3041a5,
     type: 3}
+  InvincibilityTime: 3
+  FlashFrequency: 0.25
 --- !u!50 &558796210184748719
 Rigidbody2D:
   serializedVersion: 4
@@ -154,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ghost: {fileID: 558796210184748718, guid: e71dea6e78f99904ebd677833a3607ac, type: 3}
-  spriteRendererVisible: 1
 --- !u!1 &558796210342530971
 GameObject:
   m_ObjectHideFlags: 0

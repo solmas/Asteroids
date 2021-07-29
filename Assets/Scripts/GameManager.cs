@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
         playerScore = 0;
         playerLives = 5;
         SpawnPlayer();
-        GameEvents.events.PlayerSpawn();
     }
 
     // subscribe
@@ -48,14 +47,15 @@ public class GameManager : MonoBehaviour
     public void UpdatePlayerLives(int life)
     {
         playerLives += life;
-        StartCoroutine(RespawnTimer());
+        if (life == -1)
+        {
+            StartCoroutine(RespawnTimer());
+        }
     }
 
     IEnumerator RespawnTimer()
     {
-        Debug.Log("RespawnTimer started");
         yield return new WaitForSeconds(3);
-        Debug.Log("RespawnTimer finished");
         SpawnPlayer();
     }
 
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         if (playerLives >= 0)
         {
             Instantiate(player);
+            GameEvents.events.PlayerSpawn();
         }
         else
         {

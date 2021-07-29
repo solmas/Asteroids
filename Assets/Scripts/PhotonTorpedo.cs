@@ -17,7 +17,7 @@ public class PhotonTorpedo : MonoBehaviour
     {
         _rb = gameObject.GetComponent<Rigidbody2D>();
         _rb.velocity = transform.up * _torpedoSpeed;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 2f);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
